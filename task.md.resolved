@@ -1,0 +1,35 @@
+# 🧬 Urban DNA Sequencer — Upgrade Task List
+
+## Phase A — Fix the Foundation
+- [x] Audit existing codebase and document issues
+- [/] Write master implementation plan (implementation_plan.md)
+- [ ] Build [feature.py](file:///C:/Users/USER/Desktop/claude_project_Demo/feature.py) — complete feature engineering module
+- [ ] Fix [apps/app.py](file:///C:/Users/USER/Desktop/claude_project_Demo/apps/app.py) — replace mock_inference() with real model
+- [ ] Connect [urban_dna_brain.pkl](file:///C:/Users/USER/Desktop/claude_project_Demo/apps/urban_dna_brain.pkl) to the Streamlit app
+- [ ] Build `pipeline.py` — end-to-end reproducible data pipeline
+- [ ] Add model evaluation metrics (silhouette, Davies-Bouldin)
+- [ ] Move/fix orphaned [apps/page.tsx](file:///C:/Users/USER/Desktop/claude_project_Demo/apps/page.tsx)
+
+## Phase B — World-Class Frontend
+- [ ] Design and build Next.js frontend (urban-dna-frontend)
+  - [ ] Landing page with project overview and live demo CTA
+  - [ ] Interactive map dashboard (Mapbox GL JS or Leaflet)
+  - [ ] Analysis workflow stepper (shows every step of the pipeline)
+  - [ ] Cluster result cards with statistics
+  - [ ] Export panel (GeoJSON, CSV, PDF report)
+  - [ ] About/methodology page
+- [ ] Connect frontend to Streamlit or FastAPI backend
+
+## Phase C — Research-Grade Quality
+- [ ] Validate clusters against UN-Habitat / OSM ground truth shapefiles
+- [ ] Add temporal analysis (Open Buildings V2 2019 vs V3 2023)
+- [ ] Expand to 5+ cities (Nairobi, Lagos, Kampala, Dar es Salaam, Kigali)
+- [ ] Write methodology document (4–6 pages, basis for a paper)
+
+## Phase D — Publication & Deployment
+- [ ] Build FastAPI backend (/api/analyze, /api/compare, /api/export)
+- [ ] Add test suite (pytest for backend, Jest for frontend)
+- [ ] Set up CI/CD with GitHub Actions
+- [ ] Deploy to Railway/Render
+- [ ] Write and submit arXiv preprint or ISPRS conference paper
+- [ ] Create demo video + Medium article
