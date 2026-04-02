@@ -26,15 +26,6 @@ env/
 # Comment these out if you want to track the pkl
 # *.pkl
 
-# Data files (large)
-*.csv
-*.geojson
-*.shp
-*.dbf
-*.shx
-*.prj
-*.json
-
 # OS
 .DS_Store
 Thumbs.db
@@ -45,9 +36,6 @@ desktop.ini
 .idea/
 *.swp
 *.swo
-
-# HTML output maps (very large — 18MB each)
-*.html
 
 # Logs
 *.log
