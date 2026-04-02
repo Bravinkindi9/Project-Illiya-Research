@@ -23,6 +23,26 @@ from sklearn.decomposition import PCA  # noqa: E402
 from sklearn.preprocessing import RobustScaler  # noqa: E402
 
 
+# --- Global styling for publication-ready figures (IEEE 2-column legibility) ---
+sns.set_context("paper")
+sns.set_style("whitegrid")
+plt.rcParams.update(
+    {
+        "font.size": 16,
+        "axes.titlesize": 18,
+        "axes.labelsize": 16,
+        "xtick.labelsize": 14,
+        "ytick.labelsize": 14,
+        "legend.fontsize": 14,
+        "lines.linewidth": 3.0,
+        "lines.markersize": 10,
+        "figure.dpi": 300,
+        "savefig.dpi": 300,
+        "savefig.bbox": "tight",
+    }
+)
+
+
 def _kmeans_labels(x_scaled: np.ndarray, k: int, seed: int) -> np.ndarray:
     km = KMeans(
         n_clusters=k,
@@ -126,15 +146,8 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    sns.set_style("whitegrid")
-    plt.rcParams.update(
-        {
-            "figure.figsize": (10, 6),
-            "axes.titlesize": 14,
-            "axes.labelsize": 12,
-            "legend.fontsize": 11,
-        }
-    )
+    # Keep a figure size default (font sizing handled globally above)
+    plt.rcParams.update({"figure.figsize": (10, 6)})
 
     repo_root = Path(__file__).resolve().parents[1]
     features_csv = repo_root / args.csv
@@ -179,7 +192,10 @@ def main() -> None:
 
             # Silhouette requires at least 2 clusters and labels variety.
             if len(np.unique(labels)) > 1 and k > 1:
-                sils.append(float(silhouette_score(x_scaled, labels)))
+                # Silhouette can be expensive for large n; use deterministic subsampling
+                # for fast, stable K-sweep visualization.
+                sample_size = int(min(2000, x_scaled.shape[0]))
+                sils.append(float(silhouette_score(x_scaled, labels, sample_size=sample_size, random_state=42)))
             else:
                 sils.append(np.nan)
 
@@ -279,7 +295,10 @@ def main() -> None:
 
     fig3_path = paper_dir / "fig3_pca_cluster_scatter.png"
     plt.figure()
-    plt.scatter(x_pca[:, 0], x_pca[:, 1], c=df["cluster_id"].values, cmap="tab10", s=8, alpha=0.7)
+    # High-contrast palette and larger markers for 2-column legibility
+    palette = sns.color_palette("Set1", n_colors=len(np.unique(df["cluster_id"].values)))
+    colors = [palette[int(c) % len(palette)] for c in df["cluster_id"].values]
+    plt.scatter(x_pca[:, 0], x_pca[:, 1], c=colors, s=45, alpha=0.85, linewidths=0.0)
     plt.xlabel("PCA 1")
     plt.ylabel("PCA 2")
     plt.title("K=3 PCA embedding (consensus clusters)")
@@ -291,13 +310,13 @@ def main() -> None:
     fig4_path = paper_dir / "fig4_star_metric_boxplots.png"
     plt.figure(figsize=(12, 6))
     ax1 = plt.subplot(1, 2, 1)
-    sns.boxplot(x="cluster_id", y="orientation_entropy", data=df, ax=ax1)
+    sns.boxplot(x="cluster_id", y="orientation_entropy", data=df, ax=ax1, linewidth=2.0)
     ax1.set_title("orientation_entropy by cluster")
     ax1.set_xlabel("cluster_id")
     ax1.set_ylabel("orientation_entropy")
 
     ax2 = plt.subplot(1, 2, 2)
-    sns.boxplot(x="cluster_id", y="density_ratio", data=df, ax=ax2)
+    sns.boxplot(x="cluster_id", y="density_ratio", data=df, ax=ax2, linewidth=2.0)
     ax2.set_title("density_ratio by cluster")
     ax2.set_xlabel("cluster_id")
     ax2.set_ylabel("density_ratio")
