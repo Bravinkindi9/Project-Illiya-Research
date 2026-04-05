@@ -1,4 +1,4 @@
-# Project Illiya: Morphological Fingerprinting of Urban Informality
+# Project Illiya: Geometries of the Negotiated Earth
 
 ### The Objective
 To map urban settlement formality (Informal, Planned Residential, Large Formal Infrastructure) at scale across sub-Saharan Africa. This project abandons the dominant, cloud-dependent, supervised Deep Learning paradigm in favor of an **unsupervised, vector-based morphometric pipeline** utilizing Google Open Buildings V3 footprints. 
@@ -15,7 +15,7 @@ Rather than relying on black-box feature extractors, the pipeline engineers 15 p
 2. **Density Ratios:** Captures the scale-dependent micro-clustering that characterizes informal settlements vs. scale-invariant planned spacing.
 
 ### Directory Map
-- 📁 **`paper/`**: Contains the final 7-page IEEE-formatted academic preprint (`Illiya.pdf`), the raw LaTeX source code (`illiya.tex`), and high-resolution figures.
+- 📁 **`paper/`**: Contains the final 7-page IEEE-formatted academic preprint (`Illiya_v2.pdf`), the raw LaTeX source code (`illiya.tex`), and high-resolution figures.
 - 📁 **`src/`**: The core Python pipeline.
   - `kanombe_extraction.py`: GEE extraction of building polygons.
   - `feature.py` & `run_features.py`: 15-feature morphology engineering.
